@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, AppRegistry } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql
+} from "@apollo/client";
+import Rooms from './pages/Rooms/Rooms'
 
-export default function App() {
+const client = new ApolloClient({
+  uri: 'https://chat.thewidlarzgroup.com/api/graphql',
+  cache: new InMemoryCache()
+});
+
+const Stack = createNativeStackNavigator();
+
+export const App = () => {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Rooms" screenOptions={{
+          headerShown: false
+        }} >
+          <Stack.Screen name="Rooms" component={Rooms} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
+  )
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
+AppRegistry.registerComponent('MyApplication', () => App);
