@@ -6,19 +6,36 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
-  gql
+  createHttpLink,
 } from "@apollo/client";
-import Rooms from './pages/Rooms/Rooms'
+import { setContext } from '@apollo/client/link/context';
+import Rooms from './pages/Rooms/Rooms';
+//@ts-ignore
+import { TOKEN } from '@env';
+
+const httpLink = createHttpLink({
+  uri: 'https://chat.thewidlarzgroup.com/api/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: `Bearer ${TOKEN}`,
+    }
+  }
+});
 
 const client = new ApolloClient({
-  uri: 'https://chat.thewidlarzgroup.com/api/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
 
 const Stack = createNativeStackNavigator();
 
 export const App = () => {
+
+  console.log(TOKEN)
 
   return (
     <ApolloProvider client={client}>
