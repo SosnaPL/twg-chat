@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AppRegistry } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -34,9 +34,6 @@ const client = new ApolloClient({
 const Stack = createNativeStackNavigator();
 
 export const App = () => {
-
-  console.log(TOKEN)
-
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
