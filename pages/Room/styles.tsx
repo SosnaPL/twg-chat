@@ -113,9 +113,7 @@ const styles = StyleSheet.create({
   },
 
   send: {
-    position: 'relative',
-    right: -55,
-    bottom: 0,
+    right: 10,
   }
 
 })

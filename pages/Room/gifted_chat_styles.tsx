@@ -42,7 +42,7 @@ export const input_styles = (props) => {
         containerStyle={{
           borderRadius: 25,
           borderBottomRightRadius: 0,
-          width: '80%',
+          width: '95%',
           position: 'relative',
           margin: 10,
         }}
@@ -53,7 +53,11 @@ export const input_styles = (props) => {
 
 export const send_styles = (props) => {
   return (
-    <TouchableOpacity style={styles.send} onPress={() => props.onSend({ text: props.text })}>
+    <TouchableOpacity style={styles.send} onPress={() => {
+      if (props.text) {
+        props.onSend({ text: props.text })
+      }
+    }}>
       <Image source={SendIcon} />
     </TouchableOpacity>
   )

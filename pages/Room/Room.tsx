@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, Image } from 'react-native';
+import { Text, View, ActivityIndicator, Image, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { bubble_styles, input_styles, send_styles } from './gifted_chat_styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -23,6 +23,14 @@ export const Room = ({ route, navigation }) => {
   const [sendMessage, { data, loading, error }] = useMutation(send_message)
 
   const handleSend = (message) => {
+    const formatedMessage: any = {
+      _id: message._id,
+      text: message.text,
+      user: {
+        _id: message.user._id
+      }
+    }
+    setMessages(previousMessages => GiftedChat.append(previousMessages, formatedMessage))
     sendMessage({
       variables: {
         body: message.text,
@@ -103,12 +111,13 @@ export const Room = ({ route, navigation }) => {
           renderBubble={bubble_styles}
           renderInputToolbar={input_styles}
           renderSend={send_styles}
+          alwaysShowSend={true}
+          keyboardShouldPersistTaps='never'
           onSend={message => {
             handleSend(message[0]);
           }}
         />
       </View>
-
     </View>
   )
 
