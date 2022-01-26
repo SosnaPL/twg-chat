@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 import Rooms from './pages/Rooms/Rooms';
+import Room from './pages/Room/Room';
 //@ts-ignore
 import { TOKEN } from '@env';
 
@@ -41,6 +42,7 @@ export const App = () => {
           headerShown: false
         }} >
           <Stack.Screen name="Rooms" component={Rooms} />
+          <Stack.Screen name="Room" component={Room} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

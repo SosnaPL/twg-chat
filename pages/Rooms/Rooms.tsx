@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, Image } from 'react-native';
+import React from 'react';
+import { Text, View, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import { get_rooms, room_messages } from '../../queries/queries';
 import { useQuery } from '@apollo/client';
 import styles from './styles';
@@ -61,7 +61,7 @@ const LastMessage = (room_id) => {
   )
 }
 
-export const Rooms = () => {
+export const Rooms = ({ navigation }) => {
 
   const viewRooms = () => {
     const roomData = useQuery(get_rooms)
@@ -73,11 +73,14 @@ export const Rooms = () => {
         </View>
       )
     }
-
     return (
       roomData.data.usersRooms.rooms.map((room) => {
         return (
-          <View key={room.id} style={styles.roomEmbed}>
+          <TouchableOpacity key={room.id} style={styles.roomEmbed} onPress={() => {
+            navigation.navigate('Room', {
+              id: room.id
+            })
+          }}>
             <Image
               style={styles.profileImage}
               source={ProfileIcon}
@@ -88,7 +91,7 @@ export const Rooms = () => {
               </Text>
               <LastMessage id={room.id} />
             </View>
-          </View>
+          </TouchableOpacity>
         )
       }
       ))
