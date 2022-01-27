@@ -51,6 +51,8 @@ export const input_styles = (props) => {
   )
 }
 
+//Note: I wasn't able to get onpress event to work outside of the view https://github.com/entria/react-native-view-overflow/issues/13
+
 export const send_styles = (props) => {
   return (
     <TouchableOpacity style={styles.send} onPress={() => {

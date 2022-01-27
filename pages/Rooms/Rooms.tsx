@@ -14,6 +14,8 @@ const LastMessage = (room_id) => {
     }
   })
 
+  //Format seconds to day hours minutes
+
   function secondsToDhms(seconds) {
     seconds = Number(seconds);
     var d = Math.floor(seconds / (3600 * 24));
@@ -25,6 +27,8 @@ const LastMessage = (room_id) => {
     var mDisplay = m > 0 ? m + (m == 1 ? " minute " : " minutes ") : "";
     return dDisplay + hDisplay + mDisplay + "ago"
   }
+
+  //Convert insert date to fit date format and get the difference beetwen dates
 
   const lastSeen = () => {
     const date = messages.data.room.messages[0].insertedAt
@@ -62,6 +66,8 @@ const LastMessage = (room_id) => {
 }
 
 export const Rooms = ({ navigation }) => {
+
+  //Render available rooms
 
   const viewRooms = () => {
     const roomData = useQuery(get_rooms)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, Image, KeyboardAvoidingView } from 'react-native';
+import { Text, View, ActivityIndicator, Image } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { bubble_styles, input_styles, send_styles } from './gifted_chat_styles';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -22,6 +22,8 @@ export const Room = ({ route, navigation }) => {
 
   const [sendMessage, { data, loading, error }] = useMutation(send_message)
 
+  //Send message and append it to gidted chat
+
   const handleSend = (message) => {
     const formatedMessage: any = {
       _id: message._id,
@@ -39,6 +41,8 @@ export const Room = ({ route, navigation }) => {
     })
   }
 
+  //Convert received messasges to fit specified gifted chat format
+
   const formatRoomData = (messageData) => {
     let messages: any = []
     if (!messageData.loading) {
@@ -55,15 +59,11 @@ export const Room = ({ route, navigation }) => {
     return messages
   }
 
+  //Update received messages after data change
 
   useEffect(() => {
     setMessages(formatRoomData(roomData))
   }, [roomData.data])
-
-  useEffect(() => {
-    setMessages(formatRoomData(roomData))
-  }, [roomData.data])
-
 
   if (roomData.loading || roomData.error) {
     return (
@@ -120,7 +120,6 @@ export const Room = ({ route, navigation }) => {
       </View>
     </View>
   )
-
 }
 
 export default Room;

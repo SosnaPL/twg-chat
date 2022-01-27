@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+//Get available rooms for authenticated user
+
 export const get_rooms = gql`
   {
     usersRooms {
@@ -11,6 +13,8 @@ export const get_rooms = gql`
   }
 `;
 
+//Get available messages for specified room (used for lastseen/lastmessage)
+
 export const room_messages = gql`
   query last_message($id: String!) {
       room(id: $id) {
@@ -21,6 +25,8 @@ export const room_messages = gql`
     }
   }
 `;
+
+//Get available messages for specified room (used for chat)
 
 export const room_details = gql`
   query last_message($id: String!) {
@@ -35,6 +41,8 @@ export const room_details = gql`
     }
   }
 `;
+
+//Send message
 
 export const send_message = gql`
   mutation send_message($body: String!, $roomid: String!) {

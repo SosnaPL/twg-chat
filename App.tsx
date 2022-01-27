@@ -12,7 +12,7 @@ import { setContext } from '@apollo/client/link/context';
 import Rooms from './pages/Rooms/Rooms';
 import Room from './pages/Room/Room';
 //@ts-ignore
-import { TOKEN } from '@env';
+import { TOKEN } from '@env'; //Declaration of module in global.d.ts didn't fix the issue that's why ts ignore was used
 
 const httpLink = createHttpLink({
   uri: 'https://chat.thewidlarzgroup.com/api/graphql',
